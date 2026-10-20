@@ -104,25 +104,47 @@ El prototipo no requiere dependencias pesadas de backend ni instalaciones comple
    | **Gerente** | `gerente@demo.com` | `BSC2026!` | Edición de KPIs, objetivos e iniciativas |
    | **Responsable** | `responsable@demo.com` | `BSC2026!` | Registro y actualización de mediciones |
 
+4. **Ejecutar el Servidor Backend MVC (Node.js & Express):**
+   ```bash
+   cd backend
+   npm install
+   npm start
+   ```
+   - Servidor Web SSR (Vistas EJS): `http://localhost:3000/dashboard`
+   - API REST JSON: `http://localhost:3000/api/dashboard`
+
 ---
 
 ## 📁 Estructura del Proyecto
 
 ```text
 SI_TechPeru/
-├── index.html              # Punto de entrada principal (SPA) y vistas modulares
+├── index.html              # Punto de entrada principal Frontend (SPA)
 ├── README.md               # Documentación general y técnica del proyecto
 ├── css/
 │   └── styles.css          # Estilos CSS modernos, diseño responsive y paleta de semáforos
 ├── js/
 │   └── app.js              # Lógica de cálculo BSC, datos del Excel, gráficos y persistencia
-└── html/                   # Redirecciones y componentes de vista independientes
-    ├── administracion.html
-    ├── dashboard.html
-    ├── indicadores.html
-    ├── iniciativas.html
-    ├── mapa-estrategico.html
-    ├── objetivos.html
-    ├── registro-resultados.html
-    └── reportes.html
+├── html/                   # Redirecciones y vistas modulares independientes
+│   ├── administracion.html
+│   ├── dashboard.html
+│   ├── indicadores.html
+│   ├── iniciativas.html
+│   ├── mapa-estrategico.html
+│   ├── objetivos.html
+│   ├── registro-resultados.html
+│   └── reportes.html
+└── backend/                # Servidor Backend bajo patrón Modelo - Vista - Controlador (MVC)
+    ├── package.json        # Dependencias (express, ejs, cors, dotenv)
+    ├── README.md           # Documentación específica del backend y API REST
+    ├── src/
+    │   ├── app.js          # Configuración de Express, middlewares y vistas EJS
+    │   ├── server.js       # Levantamiento del servidor HTTP
+    │   ├── config/         # Constantes del BSC y umbrales del semáforo
+    │   ├── data/           # Datos del Excel sincronizados y persistencia
+    │   ├── models/         # [M] MODELOS: KpiModel, ObjectiveModel, InitiativeModel, etc.
+    │   ├── controllers/    # [C] CONTROLADORES: dashboard, kpis, objetivos, mediciones
+    │   ├── views/          # [V] VISTAS: Plantillas EJS (SSR) y presentadores JSON
+    │   └── routes/         # Rutas desacopladas (webRoutes y apiRoutes)
 ```
+

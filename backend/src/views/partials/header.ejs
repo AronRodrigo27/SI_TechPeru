@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'BSC — TechPeru SAC' %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --text: #1b2533;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --good: #16a34a;
+      --warn: #d97706;
+      --bad: #dc2626;
+      --good-bg: #dcfce7;
+      --warn-bg: #fef3c7;
+      --bad-bg: #fee2e2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+    .sidebar { width: 260px; background: #0f172a; color: #f8fafc; padding: 24px 16px; display: flex; flex-direction: column; flex-shrink: 0; }
+    .sidebar .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; padding: 0 8px; }
+    .brand-mark { width: 36px; height: 36px; background: var(--primary); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
+    .brand-title { font-size: 16px; font-weight: 700; }
+    .brand-sub { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+    .nav-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .nav-link { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 6px; color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.2s; }
+    .nav-link:hover, .nav-link.active { background: #1e293b; color: #ffffff; }
+    .nav-link.active { border-left: 3px solid var(--primary); }
+    .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow-x: hidden; }
+    .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }
+    .content { padding: 32px; max-width: 1400px; width: 100%; margin: 0 auto; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .grid { display: grid; gap: 20px; }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .metric-value { font-size: 28px; font-weight: 700; margin: 8px 0; }
+    .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .status-good { background: var(--good-bg); color: var(--good); }
+    .status-warn { background: var(--warn-bg); color: var(--warn); }
+    .status-bad { background: var(--bad-bg); color: var(--bad); }
+    .table-container { overflow-x: auto; margin-top: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+    th { background: #f8fafc; padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; }
+    td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:hover td { background: #f8fafc; }
+    .code-tag { font-family: monospace; font-size: 12px; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">B</div>
+      <div>
+        <div class="brand-title">TechPeru SAC</div>
+        <div class="brand-sub">BSC Backend MVC</div>
+      </div>
+    </div>
+    <ul class="nav-list">
+      <li><a href="/dashboard" class="nav-link <%= typeof page !== 'undefined' && page === 'dashboard' ? 'active' : '' %>">▦ Dashboard</a></li>
+      <li><a href="/objetivos" class="nav-link <%= typeof page !== 'undefined' && page === 'objetivos' ? 'active' : '' %>">◎ Objetivos (12)</a></li>
+      <li><a href="/kpis" class="nav-link <%= typeof page !== 'undefined' && page === 'kpis' ? 'active' : '' %>">▥ Indicadores (36)</a></li>
+      <li><a href="/iniciativas" class="nav-link <%= typeof page !== 'undefined' && page === 'iniciativas' ? 'active' : '' %>">◈ Iniciativas (12)</a></li>
+      <li><a href="/api/dashboard" target="_blank" class="nav-link">⚡ API JSON</a></li>
+    </ul>
+  </aside>
+  <div class="main-wrapper">
+    <header class="topbar">
+      <div>
+        <strong style="font-size: 15px;">Cuadro de Mando Integral — Período 2025</strong>
+        <span style="color: var(--muted); font-size: 13px; margin-left: 8px;">(Sincronizado con Excel)</span>
+      </div>
+      <div>
+        <span class="code-tag">Arquitectura MVC Node.js</span>
+      </div>
+    </header>
+    <main class="content">
