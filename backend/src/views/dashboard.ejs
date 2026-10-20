@@ -1,0 +1,101 @@
+<%- include('partials/header') %>
+
+<div style="margin-bottom: 24px;">
+  <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 6px;">Dashboard Ejecutivo — Balanced Scorecard</h1>
+  <p style="color: var(--muted); font-size: 14px;">Evaluación integral de TechPeru SAC (4 Perspectivas · 12 Objetivos · 36 KPIs)</p>
+</div>
+
+<div class="grid grid-4" style="margin-bottom: 24px;">
+  <div class="card" style="margin-bottom: 0;">
+    <div style="font-size: 13px; color: var(--muted); font-weight: 600;">ÍNDICE GLOBAL BSC</div>
+    <div class="metric-value"><%= summary.globalScore !== null ? summary.globalScore + '%' : '—' %></div>
+    <div>
+      <span class="status-badge status-<%= summary.globalStatus.key %>">
+        <%= summary.globalStatus.label %>
+      </span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 0;">
+    <div style="font-size: 13px; color: var(--muted); font-weight: 600;">KPIS LOGRADOS (≥90%)</div>
+    <div class="metric-value" style="color: var(--good);"><%= summary.goodCount %></div>
+    <div style="font-size: 12px; color: var(--muted);">Cumplimiento de meta verde</div>
+  </div>
+
+  <div class="card" style="margin-bottom: 0;">
+    <div style="font-size: 13px; color: var(--muted); font-weight: 600;">KPIS EN RIESGO (75-89%)</div>
+    <div class="metric-value" style="color: var(--warn);"><%= summary.warnCount %></div>
+    <div style="font-size: 12px; color: var(--muted);">Requieren seguimiento cercano</div>
+  </div>
+
+  <div class="card" style="margin-bottom: 0;">
+    <div style="font-size: 13px; color: var(--muted); font-weight: 600;">KPIS CRÍTICOS (&lt;75%)</div>
+    <div class="metric-value" style="color: var(--bad);"><%= summary.badCount %></div>
+    <div style="font-size: 12px; color: var(--muted);">Acción correctiva urgente</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 style="font-size: 18px; margin-bottom: 16px;">Desempeño por Perspectiva Estratégica</h2>
+  <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+    <% perspectiveBreakdown.forEach(p => { %>
+      <div style="border: 1px solid var(--border); border-radius: 8px; padding: 16px; background: <%= p.soft %>;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <strong style="color: <%= p.color %>; font-size: 15px;"><%= p.label %></strong>
+          <span class="status-badge status-<%= p.status.key %>"><%= p.status.label %></span>
+        </div>
+        <div style="font-size: 24px; font-weight: 700; color: <%= p.color %>;">
+          <%= p.averageScore !== null ? p.averageScore + '%' : '—' %>
+        </div>
+        <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">
+          <%= p.kpiCount %> indicadores asociados
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
+
+<div class="card">
+  <h2 style="font-size: 18px; margin-bottom: 8px;">Indicadores Prioritarios (Críticos y En Riesgo)</h2>
+  <p style="color: var(--muted); font-size: 13px; margin-bottom: 16px;">Ordenados por nivel de urgencia según el análisis del Excel</p>
+  
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Indicador</th>
+          <th>Perspectiva</th>
+          <th>Real</th>
+          <th>Meta</th>
+          <th>% Cumpl.</th>
+          <th>Estado</th>
+          <th>Análisis / Acción Recomendada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% attentionKpis.slice(0, 10).forEach(k => { %>
+          <tr>
+            <td><span class="code-tag"><%= k.id %></span></td>
+            <td>
+              <strong><%= k.name %></strong>
+              <div style="font-size: 11px; color: var(--muted);"><%= k.direction === 'menor' ? '🔻 Inverso (Menor = Mejor)' : '🔺 Directo' %></div>
+            </td>
+            <td><%= k.perspective.toUpperCase() %></td>
+            <td><strong><%= k.current %> <%= k.unit %></strong></td>
+            <td><%= k.target %> <%= k.unit %></td>
+            <td><strong><%= k.achievement !== null ? k.achievement + '%' : '—' %></strong></td>
+            <td>
+              <span class="status-badge status-<%= k.status.key %>">
+                <%= k.status.label %>
+              </span>
+            </td>
+            <td style="max-width: 320px; font-size: 12px; color: #475569;"><%= k.description %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

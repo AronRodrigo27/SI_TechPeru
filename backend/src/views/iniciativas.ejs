@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<div style="margin-bottom: 24px;">
+  <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 6px;">12 Iniciativas Estratégicas y Planes de Acción</h1>
+  <p style="color: var(--muted); font-size: 14px;">Planes formulados en base al Análisis y Acciones Recomendadas del Excel BSC</p>
+</div>
+
+<div class="card">
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Iniciativa / Proyecto</th>
+          <th>Objetivo / KPI</th>
+          <th>Responsable</th>
+          <th>Presupuesto</th>
+          <th>Avance</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% initiatives.forEach(i => { %>
+          <tr>
+            <td><span class="code-tag"><%= i.id %></span></td>
+            <td>
+              <strong><%= i.name %></strong>
+              <div style="font-size: 12px; color: var(--muted); max-width: 380px; margin-top: 2px;"><%= i.description %></div>
+            </td>
+            <td>
+              <span class="code-tag"><%= i.objectiveId %></span>
+              <% if (i.kpiId) { %><span class="code-tag" style="margin-left: 4px;"><%= i.kpiId %></span><% } %>
+            </td>
+            <td>
+              <%= i.owner %>
+              <div style="font-size: 11px; color: var(--muted);"><%= i.area %></div>
+            </td>
+            <td><strong>S/ <%= Number(i.budget).toLocaleString('es-PE') %></strong></td>
+            <td>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 100px; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                  <div style="width: <%= i.progress %>%; height: 100%; background: <%= i.progress === 100 ? 'var(--good)' : 'var(--primary)' %>;"></div>
+                </div>
+                <strong style="font-size: 12px;"><%= i.progress %>%</strong>
+              </div>
+            </td>
+            <td>
+              <span class="status-badge <%= i.status === 'Finalizada' ? 'status-good' : i.status === 'En riesgo' ? 'status-bad' : 'status-warn' %>">
+                <%= i.status %>
+              </span>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

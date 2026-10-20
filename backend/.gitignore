@@ -1,0 +1,7 @@
+node_modules/
+.env
+npm-debug.log*
+.DS_Store
+Thumbs.db
+bsc_current_state.json
+src/data/bsc_current_state.json

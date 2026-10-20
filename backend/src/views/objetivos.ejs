@@ -1,0 +1,48 @@
+<%- include('partials/header') %>
+
+<div style="margin-bottom: 24px;">
+  <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 6px;">12 Objetivos Estratégicos — Balanced Scorecard</h1>
+  <p style="color: var(--muted); font-size: 14px;">Alineamiento vertical entre las perspectivas y el cumplimiento de metas</p>
+</div>
+
+<div class="card">
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Objetivo Estratégico</th>
+          <th>Perspectiva</th>
+          <th>Responsable</th>
+          <th>Prioridad</th>
+          <th>KPIs</th>
+          <th>Cumplimiento Promedio</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% objectives.forEach(o => { %>
+          <tr>
+            <td><span class="code-tag"><%= o.id %></span></td>
+            <td>
+              <strong><%= o.name %></strong>
+              <div style="font-size: 12px; color: var(--muted); max-width: 380px; margin-top: 2px;"><%= o.description %></div>
+            </td>
+            <td><%= o.perspective.toUpperCase() %></td>
+            <td><%= o.owner %></td>
+            <td><span class="code-tag"><%= o.priority %></span></td>
+            <td><%= o.kpiCount %> KPIs</td>
+            <td><strong><%= o.averageScore !== null ? o.averageScore + '%' : '—' %></strong></td>
+            <td>
+              <span class="status-badge status-<%= o.statusBadge.key %>">
+                <%= o.statusBadge.label %>
+              </span>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

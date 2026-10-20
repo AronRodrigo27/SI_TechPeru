@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+
+<div style="margin-bottom: 24px;">
+  <h1 style="font-size: 24px; font-weight: 700; margin-bottom: 6px;">Catálogo Maestro de Indicadores (36 KPIs)</h1>
+  <p style="color: var(--muted); font-size: 14px;">9 Indicadores por cada una de las 4 perspectivas del Balanced Scorecard TechPeru SAC</p>
+</div>
+
+<div class="card">
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Indicador</th>
+          <th>Perspectiva</th>
+          <th>Objetivo</th>
+          <th>Meta</th>
+          <th>Real</th>
+          <th>% Cumpl.</th>
+          <th>Estado</th>
+          <th>Fórmula</th>
+          <th>Responsable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% kpis.forEach(k => { %>
+          <tr>
+            <td><span class="code-tag"><%= k.id %></span></td>
+            <td>
+              <strong><%= k.name %></strong>
+              <div style="font-size: 11px; color: var(--muted);"><%= k.area %></div>
+            </td>
+            <td><%= k.perspective %></td>
+            <td><span class="code-tag"><%= k.objectiveId %></span></td>
+            <td><%= k.target %> <%= k.unit %></td>
+            <td><strong style="color: #1d4ed8;"><%= k.current %> <%= k.unit %></strong></td>
+            <td><strong><%= k.achievement !== null ? k.achievement + '%' : '—' %></strong></td>
+            <td>
+              <span class="status-badge status-<%= k.status.key %>">
+                <%= k.status.label %>
+              </span>
+            </td>
+            <td style="font-size: 11px; color: #475569; max-width: 200px;"><%= k.formula %></td>
+            <td><%= k.owner %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
